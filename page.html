@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="leaflet/leaflet.css">
     <script src="leaflet/leaflet.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <style>
       #mapid { height: 500px; }
     </style>
@@ -47,6 +48,14 @@
         globalMarkerList.push({
           latlng: e.latlng,
           markerRef: marker
+        });
+        $.ajax({
+          url: 'http://localhost:8081/api/uuid',
+          method: 'POST',
+          data: {lat:e.latlng[0], lon:e.latlng[1]},
+          success: function(data) {
+            log.info("Point ajouté");
+          }
         });
       }
 
