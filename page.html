@@ -57,12 +57,26 @@
           dataType: 'json',
           data: JSON.stringify(myMarker),
           success: function(data) {
-            log.info("Point ajouté");
+            console.log("Point ajouté");
           }
         });
       }
 
       mymap.on('click', onMapClick);
+
+      $.ajax({
+        url: 'http://localhost:8081/api/uuid',
+        method: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        success: function(data) {
+          for (var i = 0; i < data.length; i++) {
+            var marker = L.marker(data[i])
+            marker.addTo(mymap);
+
+          }
+          console.log("Ajout de tous les points pour l'UUID [uuid]");
+        }
+      });
     </script>
   </body>
 </html>
